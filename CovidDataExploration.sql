@@ -22,7 +22,6 @@ ORDER BY PopulationInfected DESC;
 -- 5) Ranking of countries with the highest death count per population
 --    total_deaths is text type in the .csv import file
 --    so we have to convert it into integer
-
 SELECT location, MAX(CAST(total_deaths as UNSIGNED)) as DeathCount
 FROM sql_tuto.coviddeaths
 GROUP BY location
@@ -65,7 +64,6 @@ ORDER BY CAST(vac.new_vaccinations as UNSIGNED) DESC;
 
 -- 2) Calculate, for each day and each place, the total number of vaccinations
 -- that have been carried out up to that date
-
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
 SUM(CAST(vac.new_vaccinations as UNSIGNED)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date)
 as RollingPeopleVaccinated
@@ -78,7 +76,6 @@ ORDER BY RollingPeopleVaccinated DESC;
 -- Retrieve the percentage of the population vaccinated up to each date for each location,
 -- considering all vaccinations done up to that date
 -- using CTE !
-
 WITH PopsVac (continent, location, date, population, new_vaccinations, RollingPeopleVaccinated)
 as
 (SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
